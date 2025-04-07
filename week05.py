@@ -1,16 +1,19 @@
 
-s1 = list()
-s1.append("Data structure") # push
-s1.append("Database") # push
-print(len(s1))
-print(s1)
-print(s1.pop())
-print(s1)
-print(s1[-1]) # 마지막 요소 확인 = peek
-print(s1.pop())
-print(s1)
-# print(s1.pop())
-# print(s1)
 
-# 파이썬의 list 사용하면 class 없이 스택처럼 사용 가능
+def check_parentheses(expression : str) -> bool: # type hint
+    stack = []
+    for letter in expression:
+        if letter == "(":
+            stack.append(letter)
+        if letter == ")":
+            if len(stack) == 0:
+                return False
+            else:
+                stack.pop()
 
+    return len(stack) == 0
+
+print(check_parentheses("(2+3)"))
+print(check_parentheses("(2+(3*9))"))
+print(check_parentheses("(2+(3*9)")) # 스택에 여는 소괄호가 하나 남아 있어서 false
+print(check_parentheses(")2+(3*9)("))
