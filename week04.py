@@ -17,15 +17,17 @@ class LinkedList:
         current.link = Node(data)
 
     def remove(self, target):
-        if self.head.data == target: # self.head 는 객체라서 메모리주소를 가지고 있기 때문에 target 숫자와는 비교 안됨. self.head.data와 비교해야 함!!! 책의 코드로 하면 오류 생김
-            self.head = self.head.link 
-            return
         current = self.head
+        if self.head.data == target: # self.head 는 객체라서 메모리주소를 가지고 있기 때문에 target 숫자와는 비교 안됨. self.head.data와 비교해야 함!!! 책의 코드로 하면 오류 생김
+            self.head = self.head.link
+            current.link = None # 첫번째 delete
+            return
         previous = None
         while current:
             if current.data == target:
                previous.link = current.link
-               current.link = None
+               current.link = None # 첫번째 노드 이후
+               break
             previous = current
             current = current.link
 
