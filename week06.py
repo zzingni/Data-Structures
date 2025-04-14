@@ -27,9 +27,11 @@ class Queue:
         self.size = self.size - 1
         temp = self.front
         self.front = self.front.link
+        
         if self.front is None:
             self.rear = None
-        temp.link = None # 공부하면서 이 문장 다시 생각해보기
+        temp.link = None # 공부하면서 이 문장 위치 다시 생각해보기 > 이 세줄 그림 + 녹음본
+        
         return temp.data
 
 q = Queue()
