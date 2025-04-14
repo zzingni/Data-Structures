@@ -29,6 +29,7 @@ class Queue:
         self.front = self.front.link
         if self.front is None:
             self.rear = None
+        temp.link = None # 공부하면서 이 문장 다시 생각해보기
         return temp.data
 
 q = Queue()
