@@ -18,7 +18,7 @@ G1.graph[3][0] = 1; G1.graph[3][2] = 1
 print("# G1 무방향 그래프 #")
 for row in range(G1.SIZE):
     for col in range(G1.SIZE):
-        print(G1.graph[row][col], end='')
+        print(G1.graph[row][col], end=' ')
     print()
 
 
@@ -26,8 +26,10 @@ for row in range(G1.SIZE):
 G3.graph[0][1] = 1; G3.graph[0][2] = 1
 G3.graph[3][0] = 1; G3.graph[3][2] = 1
 
+print()
+
 print("# G3 방향 그래프 #")
 for row in range(G3.SIZE):
     for col in range(G3.SIZE):
-        print(G3.graph[row][col], end='')
+        print(G3.graph[row][col], end=' ')
     print()
