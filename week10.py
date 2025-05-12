@@ -70,8 +70,31 @@ def search(value):
                return False
             current = current.right
 
+def delete(node, value):
+    if node is None:
+        return None # root 노드가 none -> 트리가 구성되어 있지 않음.
+    if value < node.data: # node == root
+        node.left = delete(node.left, value)
+    elif value > node.data:
+        node.right = delete(node.right, value)
+    else: # == (같을경우, 삭제할 노드 발견) 자식이 1일때, 없을때, 2일때 처리
+        # 자식이 없는 leaf 노드거나, 자식이 하나만 있는 경우
+        if node.left is None: # node.right 가 None이면 위의 부모 노드가 return 값을 받음. None. 만약 값이 있으면 그 값을 return 받음
+            return node.right
+        elif node.right is None:
+            return node.left
+
+        # 자식이 2개인 경우
+        min_larger_node = node.right
+        while min_larger_node.left: # 오른쪽 노드 중 가장 작은 값 찾아야 하니까 left를 따라가야 함.
+            min_larger_node = min_larger_node.left # 노드 이동
+        node.data = min_larger_node.data
+        node.right = delete(node.right, min_larger_node.data)
+
+    return node
+        
 if __name__ == "__main__":
-    numbers = [10, 15, 8, 3, 9]
+    numbers = [10, 15, 8, 3, 9, 14]
     root = None
 
     for number in numbers:
@@ -91,3 +114,13 @@ if __name__ == "__main__":
         print(f"{find_number}을(를) 찾았습니다")
     else:
         print(f"{find_number}가 존재하지 않습니다.")
+
+
+    del_number = int(input("제거할 값 : "))
+    root = delete(root, del_number)
+    post_order(root)
+    print()
+    in_order(root)
+    print()
+    pre_order(root)
+    print()
