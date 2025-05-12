@@ -27,8 +27,7 @@ def post_order(node):
     if node:
         post_order(node.left)
         post_order(node.right)
-        print(node.data, end='-')
-
+        print(node.data, end='->')
 
 
 def insert(root, value):
@@ -78,6 +77,7 @@ def delete(node, value):
     elif value > node.data:
         node.right = delete(node.right, value)
     else: # == (같을경우, 삭제할 노드 발견) 자식이 1일때, 없을때, 2일때 처리
+
         # 자식이 없는 leaf 노드거나, 자식이 하나만 있는 경우
         if node.left is None: # node.right 가 None이면 위의 부모 노드가 return 값을 받음. None. 만약 값이 있으면 그 값을 return 받음
             return node.right
@@ -85,11 +85,18 @@ def delete(node, value):
             return node.left
 
         # 자식이 2개인 경우
-        min_larger_node = node.right
+        # 왼쪽에서 가장 큰 값을 올리는 코드로 짜도 됨 > 해보기
+        # min_larger_node = node.right
         while min_larger_node.left: # 오른쪽 노드 중 가장 작은 값 찾아야 하니까 left를 따라가야 함.
             min_larger_node = min_larger_node.left # 노드 이동
         node.data = min_larger_node.data
         node.right = delete(node.right, min_larger_node.data)
+
+        # max_smaller_node = node.left
+        # while max_smaller_node.right: # 왼쪽 노드 중 가장 큰 값 찾아야 하니까 right를 따라가야 함.
+        #     max_smaller_node = max_smaller_node.right # 노드 이동
+        # node.data = max_smaller_node.data
+        # node.left = delete(node.left, max_smaller_node.data)
 
     return node
         
