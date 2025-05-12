@@ -1,3 +1,6 @@
+from idlelib.search import SearchDialog
+
+
 class TreeNode:
 	def __init__(self):
 		self.left = None
@@ -25,6 +28,7 @@ def post_order(node):
         post_order(node.left)
         post_order(node.right)
         print(node.data, end='-')
+
 
 
 def insert(root, value):
@@ -62,3 +66,25 @@ if __name__ == "__main__":
     in_order(root)
     print()
     pre_order(root)
+    print()
+
+def search():
+    find_number = int(input("찾고자 하는 값 : "))
+    current = root
+    while True:
+        if find_number == current.data:
+            print(f"{find_number}을(를) 찾았습니다")
+            break
+        elif find_number < current.data:
+            if current.left is None:
+                print(f"{find_number}이(가) 존재하지 않습니다")
+                break
+            current = current.left
+        else:
+            if current.right is None:
+                print(f"{find_number}이(가) 존재하지 않습니다")
+                break
+            current = current.right
+
+
+search()
