@@ -1,50 +1,26 @@
-
-class Graph:
-    def __init__(self, size):
-        self.SIZE = size
-        self.graph =[[0 for _ in range(size)] for _ in range(size)]
-
-G1 = Graph(4)
-
-# 0 == A, 1 == B, 2 == C, 3 == D
-G1.graph[0][1] = 1; G1.graph[0][2] = 1; G1.graph[0][3] = 1
-G1.graph[1][0] = 1; G1.graph[1][2] = 1
-G1.graph[2][0] = 1; G1.graph[2][1] = 1; G1.graph[2][3] = 1
-G1.graph[3][0] = 1; G1.graph[3][2] = 1
-
-print("# G1 무방향 그래프 #")
-for row in range(G1.SIZE):
-    for col in range(G1.SIZE):
-        print(G1.graph[row][col], end=' ')
-    print()
+from itertools import chain
+from pydoc import visiblename
 
 
-G2 = Graph(4)
+# 깊이 우선 탐색
+graph = [
+    [0, 1, 1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 1, 0, 0, 0, 0],
+    [1, 0, 0, 1, 0, 0, 0, 0],
+    [0, 1, 1, 0, 1, 1, 1, 0],
+    [0, 0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 1, 0],
 
-# 0 == A, 1 == B, 2 == C, 3 == D
-G2.graph[0][1] = 1; G2.graph[0][2] = 1
-G2.graph[3][0] = 1; G2.graph[3][2] = 1
+]
+# 267페이지 그림 참고
+def dfs(g, i, visited): # 그래프주소, index값, 방문한 리스트 주소
+    visited[i] = 1 # 방문 처리, 함수 실행하자마자 visited_dfs[0 ~~ ] 첫번째 0이 1 됨.
+    print(chr(ord('A') + i), end = ' ') #ord는 ascii코드로 변환해주는 것 > chr(65) 하면 A
+    for j in range(len(g)): # g는 그래프의 크기 > 8번 실행
+        if g[i][j] == 1 and not visited[j]:
+            dfs(g, j, visited) # 깊이우선탐색(DFS)이니까 재귀함수 사용
 
-print()
-
-print("# G2 방향 그래프 #")
-for row in range(G2.SIZE):
-    for col in range(G2.SIZE):
-        print(G2.graph[row][col], end=' ')
-    print()
-
-
-G_self = Graph(4)
-# 0 == A, 1 == B, 2 == C, 3 == D
-G_self.graph[0][3] = 1
-G_self.graph[1][2] = 1; G_self.graph[1][3] = 1
-G_self.graph[2][1] = 1
-G_self.graph[3][0] = 1; G_self.graph[3][1] = 1
-
-print()
-
-print("# G_self 무방향 그래프 #")
-for row in range(G_self.SIZE):
-    for col in range(G_self.SIZE):
-        print(G_self.graph[row][col], end=' ')
-    print()
+visited_dfs = [0 for _ in range(len(graph))]
+dfs(graph, 0, visited_dfs) # 시작값 i를 뭘로 줘도 똑같이 순회 거쳐서 실행 됨.
