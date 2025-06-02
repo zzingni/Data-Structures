@@ -1,52 +1,34 @@
 # 깊이우선탐색의 stack 활용
 # 나중에 재귀함수 사용해서 코드 짜보기 > 기존 재귀함수 true, false 리턴하는 걸로 바꿔야 함.
+# mst
 
 class Graph: # () 없앰
 	def __init__ (self, size):
 		self.graph = [[0 for _ in range(size)] for _ in range(size)]
 
-def print_graph(g) : # 스네이크 표기법
-	print(' ', end = ' ')
-	for v in range(len(g.graph)) :
-		print(name_ary[v], end =' ')
-	print()
-	for row in range(len(g.graph)) :
-		print(name_ary[row], end =' ')
-		for col in range(len(g.graph)) : # g객체의 graph 속성의 길이
-			print(f"{g.graph[row][col]:2d}", end=' ')
-		print()
-	print()
+def print_graph(g): # 스네이크 표기법
+    print(' ', end = ' ')
+    for v in range(len(g.graph)) :
+        print(name_ary[v], end =' ')
+    print()
+    for row in range(len(g.graph)) :
+        print(name_ary[row], end =' ')
+        for col in range(len(g.graph)) : # g객체의 graph 속성의 길이
+            print(f"{g.graph[row][col]:2d}", end=' ')
+        print()
+    print()
 
-def find_vertex(g, find_vtx) : # 중요, 연결 유무 확인 함수.
-	stack = list()
-	visited_ary = list()
+def find_vertex(g, find_vtx): # 중요, 연결 유무 확인 함수.
+    visited_ary = list()
+    start = 0 # 시작 도시 index
+    dfs(g, start, visited_ary)
+    return find_vtx in visited_ary # True or False
 
-	current = 0	# 시작 정점
-	stack.append(current)
-	visited_ary.append(current)
-
-	while stack: # stack의 내용이 있을 경우
-		next = None
-		for vertex in range(graph_size):
-			if g.graph[current][vertex] != 0:  # 연결되어 있으면
-				if vertex in visited_ary:	# 방문한 적이 있는 정점 (true면 >> 1이면)
-					pass
-				else :			# 방문한 적이 없으면
-					next = vertex  #  다음 정점으로 지정
-					break
-
-		if next is not None:				# 다음에 방문할 정점이 있는 경우
-			current = next
-			stack.append(current)  # push
-			visited_ary.append(current)  # push
-		else :					# 다음에 방문할 정점이 없는 경우
-			current = stack.pop()
-
-	if find_vtx in visited_ary:
-		return True
-	else :
-		return False
-
+def dfs(g, current, visited):
+    visited.append(current) # 현재 노드를 넣고 시작 (인천부터 시작)
+    for vertex in range(graph_size):
+        if g.graph[current][vertex] > 0 and vertex not in visited: # 가중치 값이 있으면서 방문하지 않았을 때
+            dfs(g, vertex, visited)
 
 g1 = None
 name_ary = ['인천', '서울', '강릉', '대전', '광주', '부산']
