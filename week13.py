@@ -83,7 +83,12 @@ for cost, s, e in mst_edges:
 	mst_graph.graph[s][e] = cost
 	mst_graph.graph[e][s] = cost # 무방향 그래프라 반대 방향으로도.
 
+
 print('최소 비용 계산')
 print_graph(mst_graph)
-
 print(f"최소 비용 계산 :  {mst_cost}")
+
+# 간선 출력
+print('MST 간선')
+for cost, u, v in mst_edges: #cost, start, end
+	print(f"{name_ary[u]} --- {name_ary[v]} : {cost}")
